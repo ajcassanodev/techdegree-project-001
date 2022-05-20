@@ -38,17 +38,19 @@ def start_game():
     player_name = input("Please enter your name > ")
     print("Welcome {}! ".format(player_name))
     ran_num = random.randrange(1,10)
-    while guess > 0:
-        play_guess = input("Please select a number between 1 and 10 >")
+    print(ran_num)
+    while True:
+        if guess == 0:
+            print("You lost! please try again ! ")
+            game_scores.append(50)
+            break
+        play_guess = int(input("Please select a number between 1 and 10 >"))
         try:
-            play_guess = int(play_guess)
-            if play_guess < 1:
-                print("Sorry please select a number 1-10 ")
-            if play_guess > 10:
-                print("Sorry only select a number 1-10 ")
+            play_guess = int(input("Please select a number between 1 and 10 >"))
+            if play_guess <= 1:
+                raise ValueError ("Sorry please select a number 1-10 ")
         except ValueError as err:
-            print("That is a invalid response! ")
-        
+            print("{}".format(err))
         if play_guess < ran_num:
             times_guess += 1
             guess -= 1
@@ -73,7 +75,7 @@ start_game()
 while True:
     new_game = input("Would you like to play a new game? (yes/no)")
     if new_game == 'yes':
-        print("Awesome ! The best score to beat is : {} ".format(min(game_scores)))
+        print("the current score to beat is: {} ".format(min(game_scores)))
         start_game()
         continue
     elif new_game == 'no':
